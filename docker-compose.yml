@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  onlyoffice-document-server:
+    image: onlyoffice-documentserver:latest
+    container_name: onlyoffice
+    restart: always
+    ports:
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - ./custom-config.xml:/etc/onlyoffice/documentserver/config/custom-config.xml
+
+  webserver:
+    build: .
+    container_name: webserver
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - onlyoffice-document-server
