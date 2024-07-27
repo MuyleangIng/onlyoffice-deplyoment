@@ -1,0 +1,13 @@
+# Use the official OnlyOffice Document Server image
+FROM onlyoffice/documentserver:latest
+
+# Disable JWT
+ENV JWT_ENABLED=false
+
+# Expose ports
+EXPOSE 80
+EXPOSE 443
+
+# Start the OnlyOffice Document Server
+CMD ["/app/ds/run-document-server.sh"]
+

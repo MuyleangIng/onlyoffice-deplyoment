@@ -2,12 +2,12 @@ version: '3'
 
 services:
   onlyoffice-document-server:
-    image: onlyoffice-documentserver:latest
+    image: onlyoffice-document-server:latest
     container_name: onlyoffice
     restart: always
     ports:
-      - "8080:80"
-      - "8443:443"
+      - "5474:80"  # Map internal port 80 of the OnlyOffice server to port 3306 on the host
+      - "8443:443" # Map internal port 443 of the OnlyOffice server to port 8443 on the host
     volumes:
       - ./custom-config.xml:/etc/onlyoffice/documentserver/config/custom-config.xml
 
@@ -16,6 +16,7 @@ services:
     container_name: webserver
     restart: always
     ports:
-      - "80:80"
+      - "5473:3000"  # Map internal port 3000 of the Next.js application to port 5473 on the host
     depends_on:
       - onlyoffice-document-server
+
